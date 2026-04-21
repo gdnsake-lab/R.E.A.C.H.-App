@@ -1,21 +1,15 @@
 {
-  "name": "R.E.A.C.H.",
+  "name": "R.E.A.C.H. — Resources, Education, Access, Compassion, Help",
   "short_name": "REACH",
-  "start_url": ".",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#a1dda4",
-  "description": "FREE Resources Education Access Compassion Help for those experiencing instability and those helping.",
+  "orientation": "portrait",
+  "background_color": "#f4f6f4",
+  "theme_color": "#2f8a4a",
+  "description": "Free resource directory for people experiencing instability and those helping them.",
   "icons": [
-    {
-      "src": "assets/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }

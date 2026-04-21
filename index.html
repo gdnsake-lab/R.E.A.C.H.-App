@@ -2,36 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>R.E.A.C.H.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>R.E.A.C.H. — Resources, Education, Access, Compassion, Help</title>
+  <meta name="description" content="Free resource directory for people experiencing instability and the people helping them." />
 
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="styles.css" />
-  <meta name="theme-color" content="#a1dda4" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+  <meta name="theme-color" content="#2f8a4a" />
 </head>
 <body>
 
-<header>
-  <img src="https://drive.google.com/uc?id=1hVQNTZaUtNUgqHPSDqZxY0LLk_6SbWSu/" class="logo">
-  <h1>R.E.A.C.H.</h1>
+<header class="app-header">
+  <div class="brand">
+    <img src="assets/logo.svg" alt="" class="logo" />
+    <div>
+      <h1>R.E.A.C.H.</h1>
+      <p class="tagline">Resources • Education • Access • Compassion • Help</p>
+    </div>
+  </div>
+  <button id="refresh" class="icon-btn" title="Refresh data" aria-label="Refresh data">↻</button>
 </header>
 
-<section class="controls">
-  <input type="text" id="search" placeholder="Search resources..." />
+<div id="banner" class="banner" hidden></div>
 
-  <div class="filters">
-    <select id="barrier" multiple></select>
-    <select id="population" multiple></select>
-    <select id="eligibility" multiple></select>
-  </div>
-
-  <select id="sort">
-    <option value="alpha">Sort A–Z</option>
-    <option value="category">Sort by Category</option>
-  </select>
+<section class="search-bar">
+  <input type="search" id="search" placeholder="Search programs, categories, populations…" autocomplete="off" />
 </section>
 
-<main id="grid"></main>
+<nav class="category-rail" id="categoryRail" aria-label="Categories"></nav>
+
+<section class="quick-filters" aria-label="Quick filters">
+  <button type="button" class="chip toggle" data-toggle="crisis">Crisis Prepared</button>
+  <button type="button" class="chip toggle" data-toggle="open24">Open 24h</button>
+  <button type="button" class="chip toggle" data-toggle="walkin">Walk-ins</button>
+  <button type="button" class="chip toggle" data-toggle="lowbarrier">Low Barrier</button>
+  <button type="button" class="chip sort" id="sortBtn" aria-haspopup="true">Sort: A–Z</button>
+  <button type="button" class="chip filters" id="filtersBtn">More filters</button>
+  <button type="button" class="chip clear" id="clearBtn" hidden>Clear</button>
+</section>
+
+<section class="filter-panel" id="filterPanel" hidden aria-label="Additional filters">
+  <div class="filter-group">
+    <h3>Population</h3>
+    <div class="chip-row" id="populationChips"></div>
+  </div>
+  <div class="filter-group">
+    <h3>Eligibility</h3>
+    <div class="chip-row" id="eligibilityChips"></div>
+  </div>
+  <div class="filter-group">
+    <h3>Barrier level</h3>
+    <div class="chip-row" id="barrierChips"></div>
+  </div>
+</section>
+
+<p id="resultCount" class="result-count" aria-live="polite"></p>
+
+<main id="grid" class="grid" aria-live="polite"></main>
+
+<div id="detailOverlay" class="overlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <button id="detailClose" class="icon-btn close" aria-label="Close">✕</button>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  <span>Data: <a href="https://docs.google.com/spreadsheets/d/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/edit?usp=sharing" target="_blank" rel="noopener">Google Sheet</a></span>
+  <span id="dataStatus"></span>
+</footer>
 
 <script src="app.js"></script>
 </body>
