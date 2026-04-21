@@ -140,7 +140,7 @@ populationSelect.addEventListener("change", applyFilters);
 eligibilitySelect.addEventListener("change", applyFilters);
 sortSelect.addEventListener("change", applyFilters);
 
-fetchData("https://opensheet.elk.sh/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/Sheet1");
+fetchData("https://opensheet.elk.sh/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/JSON GITHUB R.E.A.C.H. APP");
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
