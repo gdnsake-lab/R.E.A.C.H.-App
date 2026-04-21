@@ -1,3 +1,4 @@
+alert("JS is running");
 const SHEET_URL = "https://opensheet.elk.sh/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/R.E.A.C.H.";
 
 let data = [];
