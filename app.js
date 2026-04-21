@@ -1,4 +1,4 @@
-const SHEET_URL = "https://opensheet.elk.sh/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/Sheet1";
+const SHEET_URL = "https://opensheet.elk.sh/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/R.E.A.C.H.";
 
 let data = [];
 let filtered = [];
@@ -15,33 +15,39 @@ async function fetchData() {
   try {
     const res = await fetch(SHEET_URL);
     const json = await res.json();
+
     data = json.map(normalize);
+
+    // Save for offline use
+    localStorage.setItem("data", JSON.stringify(data));
+
     initFilters();
     applyFilters();
-  } catch {
+  } catch (e) {
+    console.error("Fetch failed, loading offline:", e);
     loadOffline();
   }
 }
 
 function normalize(row) {
   return {
-    program_name: row["Program Name"],
-    program_id: row["Program ID"],
-    category: row["Category"],
-    focus: row["Focus"],
-    address: row["Address"],
-    website: row["Website"],
-    phone: row["Phone Number"],
-    barrier_level: row["Barrier Level"],
-    crisis_prepared: row["Crisis Prepared"],
-    eligibility: row["Eligibility"],
-    walk_ins: row["Walk-ins Accepted"],
-    intake_method: row["Intake Method"],
-    intake_requirements: row["Intake Requirements"],
-    population: row["Population"],
-    hours_24: row["24 Hours"],
-    summary: row["Summary"],
-    date_verified: row["Date Verified"]
+    program_name: row["Program Name"] || "",
+    program_id: row["Program ID"] || "",
+    category: row["Category"] || "",
+    focus: row["Focus"] || "",
+    address: row["Address"] || "",
+    website: row["Website"] || "",
+    phone: row["Phone Number"] || "",
+    barrier_level: row["Barrier Level to Services"] || "",
+    crisis_prepared: row["Crisis Prepared"] || "",
+    eligibility: row["Eligibility"] || "",
+    walk_ins: row["Walk-ins Accepted"] || "",
+    intake_method: row["Intake Method"] || "",
+    intake_requirements: row["Intake Requirements"] || "",
+    population: row["Population"] || "",
+    hours_24: row["24 Hours"] || "",
+    summary: row["Summary"] || "",
+    date_verified: row["Date Verified"] || ""
   };
 }
 
@@ -56,6 +62,7 @@ function initFilters() {
 }
 
 function fillSelect(select, values) {
+  select.innerHTML = "<option value=''>All</option>";
   values.forEach(v => {
     const opt = document.createElement("option");
     opt.value = v;
@@ -65,7 +72,7 @@ function fillSelect(select, values) {
 }
 
 function getSelected(select) {
-  return Array.from(select.selectedOptions).map(o => o.value);
+  return select.value ? [select.value] : [];
 }
 
 function applyFilters() {
@@ -76,10 +83,10 @@ function applyFilters() {
 
   filtered = data.filter(item => {
     const matchesSearch =
-      item.program_name?.toLowerCase().includes(q) ||
-      item.category?.toLowerCase().includes(q) ||
-      item.focus?.toLowerCase().includes(q) ||
-      item.summary?.toLowerCase().includes(q);
+      item.program_name.toLowerCase().includes(q) ||
+      item.category.toLowerCase().includes(q) ||
+      item.focus.toLowerCase().includes(q) ||
+      item.summary.toLowerCase().includes(q);
 
     const matchesBarrier =
       !barrier.length || barrier.includes(item.barrier_level);
@@ -107,18 +114,23 @@ function sortData() {
 
 function render() {
   grid.innerHTML = "";
+
+  if (!filtered.length) {
+    grid.innerHTML = "<p>No results found.</p>";
+    return;
+  }
+
   filtered.forEach(item => {
     const div = document.createElement("div");
     div.className = "card";
 
     div.innerHTML = `
-     <h3>${item["Program Name"] || ""}</h3>
-<p>${item["Summary"] || ""}</p>
+      <h3>${item.program_name}</h3>
+      <p>${item.summary}</p>
 
-${item["Phone Number"] ? `<a href="tel:${item["Phone Number"]}">Call</a>` : ""}
-${item["Website"] ? `<a href="${item["Website"]}" target="_blank">Website</a>` : ""}
-${item["Address"] ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item["Address"])}" target="_blank">Map</a>` : ""}
-      </div>
+      ${item.phone ? `<a href="tel:${item.phone}">Call</a>` : ""}
+      ${item.website ? `<a href="${item.website}" target="_blank">Website</a>` : ""}
+      ${item.address ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.address)}" target="_blank">Map</a>` : ""}
     `;
 
     grid.appendChild(div);
@@ -131,6 +143,8 @@ function loadOffline() {
     data = JSON.parse(cached);
     initFilters();
     applyFilters();
+  } else {
+    grid.innerHTML = "<p>Failed to load data.</p>";
   }
 }
 
@@ -140,7 +154,7 @@ populationSelect.addEventListener("change", applyFilters);
 eligibilitySelect.addEventListener("change", applyFilters);
 sortSelect.addEventListener("change", applyFilters);
 
-fetchData("https://opensheet.elk.sh/1rTdR5qV-WM9T-K7QJOl33s7bobL4Z5pAvyiWqrKuFJ4/R.E.A.C.H.");
+fetchData();
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
