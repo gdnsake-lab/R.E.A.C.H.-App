@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="R.E.A.C.H. logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a1dda4"/>
+      <stop offset="1" stop-color="#2f8a4a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#g)"/>
+  <path d="M32 48 C 20 38, 14 30, 18 24 C 22 18, 30 20, 32 26 C 34 20, 42 18, 46 24 C 50 30, 44 38, 32 48 Z" fill="#ffffff" opacity="0.94"/>
+  <path d="M32 48 C 20 38, 14 30, 18 24 C 22 18, 30 20, 32 26 C 34 20, 42 18, 46 24 C 50 30, 44 38, 32 48 Z" fill="none" stroke="#1f6b34" stroke-width="1.4" stroke-linejoin="round"/>
+</svg>
