@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>R.E.A.C.H.</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#a1dda4" />
+</head>
+<body>
+
+<header>
+  <img src="https://drive.google.com/uc?id=1hVQNTZaUtNUgqHPSDqZxY0LLk_6SbWSu/" class="logo">
+  <h1>R.E.A.C.H.</h1>
+</header>
+
+<section class="controls">
+  <input type="text" id="search" placeholder="Search resources..." />
+
+  <div class="filters">
+    <select id="barrier" multiple></select>
+    <select id="population" multiple></select>
+    <select id="eligibility" multiple></select>
+  </div>
+
+  <select id="sort">
+    <option value="alpha">Sort A–Z</option>
+    <option value="category">Sort by Category</option>
+  </select>
+</section>
+
+<main id="grid"></main>
+
+<script src="app.js"></script>
+</body>
+</html>
