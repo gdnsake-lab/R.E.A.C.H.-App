@@ -227,6 +227,7 @@ h1, h2, h3 { margin: 0; }
 }
 
 /* Detail overlay */
+[hidden] { display: none !important; }
 .overlay {
   position: fixed;
   inset: 0;
