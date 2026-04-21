@@ -112,12 +112,12 @@ function render() {
     div.className = "card";
 
     div.innerHTML = `
-      <h3>${item.program_name}</h3>
-      <p>${item.summary || ""}</p>
-      <div class="actions">
-        ${item.phone ? `<a href="tel:${item.phone}">Call</a>` : ""}
-        ${item.website ? `<a href="${item.website}" target="_blank">Website</a>` : ""}
-        ${item.address ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.address)}" target="_blank">Map</a>` : ""}
+     <h3>${item["Program Name"] || ""}</h3>
+<p>${item["Summary"] || ""}</p>
+
+${item["Phone Number"] ? `<a href="tel:${item["Phone Number"]}">Call</a>` : ""}
+${item["Website"] ? `<a href="${item["Website"]}" target="_blank">Website</a>` : ""}
+${item["Address"] ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item["Address"])}" target="_blank">Map</a>` : ""}
       </div>
     `;
 
